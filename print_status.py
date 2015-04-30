@@ -12,6 +12,12 @@ def print_status(message="", type="info"):
         
     elif type == "debug":
         if color_print:
+            print("\033[1;33m[#]\033[1;m {}".format(message))
+        else:
+            print("[#] {}".format(message))
+
+    elif type == "maybe" or type == "unclear":
+        if color_print:
             print("\033[1;33m[?]\033[1;m {}".format(message))
         else:
             print("[?] {}".format(message))
@@ -28,12 +34,6 @@ def print_status(message="", type="info"):
         else:
             print("[-] {}".format(message))
 
-    elif type == "maybe":
-        if color_print:
-            print("\033[1;32m[~]\033[1;m {}".format(message))
-        else:
-            print("[~] {}".format(message))
-
     elif type == "success":
         if color_print:
             print("\033[1;32m[+]\033[1;m {}".format(message))
@@ -45,3 +45,6 @@ def print_status(message="", type="info"):
             print("\033[1;31m[ALERT]\033[1;m {}".format(message))
         else:
             print("[ALERT] {}".format(message))
+    
+    else:
+        raise ValueError("Invalid message type")

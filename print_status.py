@@ -1,9 +1,10 @@
+from __future__ import print_function
 import platform
 import sys
 
+color_print = sys.stdout.isatty() and platform.system() != "Windows"
+
 def print_status(message="", type="info"):
-    color_print = sys.stdout.isatty() and platform.system() != "Windows"
-        
     if type == "info":
         if color_print:
             print("\033[1;34m[*]\033[1;m {}".format(message))
@@ -18,9 +19,9 @@ def print_status(message="", type="info"):
 
     elif type == "maybe" or type == "unclear":
         if color_print:
-            print("\033[1;33m[?]\033[1;m {}".format(message))
+            print("\033[1;33m[~]\033[1;m {}".format(message))
         else:
-            print("[?] {}".format(message))
+            print("[~] {}".format(message))
         
     elif type == "warn" or type == "error":
         if color_print:
@@ -48,3 +49,21 @@ def print_status(message="", type="info"):
     
     else:
         raise ValueError("Invalid message type")
+
+
+def take_input(message, prompt="\n> "):
+    # Python 2 raw_input was renamed to input in Python 3, thus this
+    # workaround
+    global input
+    try:
+        input = raw_input
+    except NameError:
+        pass    
+
+    if color_print:
+        result = input("\033[1;34m[?]\033[1;m {}{}".format(
+            message, prompt))
+    else:
+        result = input("[?] {}{}".format(message, prompt))
+   
+    return result 

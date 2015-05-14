@@ -51,7 +51,7 @@ def print_status(message="", type="info"):
         raise ValueError("Invalid message type")
 
 
-def take_input(message, prompt="\n> "):
+def take_input(message):
     # Python 2 raw_input was renamed to input in Python 3, thus this
     # workaround
     global input
@@ -61,9 +61,9 @@ def take_input(message, prompt="\n> "):
         pass    
 
     if color_print:
-        result = input("\033[1;34m[?]\033[1;m {}{}".format(
-            message, prompt))
+        result = input("\033[1;34m[?]\033[1;m {}\n"
+            "\033[1;34m>\033[1;m ".format(message))
     else:
-        result = input("[?] {}{}".format(message, prompt))
+        result = input("[?] {}\n> ".format(message, prompt))
    
     return result 

@@ -1,5 +1,5 @@
-from print_status import print_status
-from print_status import take_input
+from colorio import print_status
+from colorio import take_input
 
 print_status("Info", "info")
 print_status("Warn", "warn")
